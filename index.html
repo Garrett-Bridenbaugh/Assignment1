@@ -1,1 +1,81 @@
-<!--Your HTML code here-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real Estate Data Analysis</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo.png" alt="Logo" class="navbar-logo me-2">
+        <span>Real Estate</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="comparelistings.html">Compare Listings</a></li>
+          <li class="nav-item"><a class="nav-link" href="analytics.html">Analytics</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-photo position-relative d-flex align-items-center justify-content-center text-white">
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100"></div>
+    <div class="container text-center position-relative" style="z-index: 2;">
+      <img src="img/logo.png" alt="Real Estate Logo" class="hero-logo">
+      <h1>Explore Real Estate Data Across the United States</h1>
+      <p class="lead">Visualizing market trends, prices, and regional analytics to inform smarter decisions.</p>
+    </div>
+  </header>
+
+  <!-- Featured Insights Section -->
+  <section class="container my-5">
+    <h2 class="mb-4">Key Regional Insights</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">📊 Top 5 Most Expensive States</h5>
+            <p class="card-text">California, New York, Massachusetts, Hawaii, and Washington continue to lead median price charts in 2024.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">📉 Price Decline Regions</h5>
+            <p class="card-text">Rust Belt states and select rural areas in the Midwest are showing signs of market cooldown and price dips.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">🏘️ Fastest Growing Metro Areas</h5>
+            <p class="card-text">Tampa, Austin, and Charlotte top the charts for year-over-year housing growth and demand.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    &copy; 2025 US Real Estate Data Explorer. All rights reserved.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,13 +1,30 @@
-/**
-Sample css code
-*/
-/* Set height to 100% for body and html to enable the background image to cover the whole page: */
-body,
-html {
+/* Ensure full height for proper flex layout */
+html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-/*Set background image*/
+/* Logo inside navbar */
+.navbar-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Flexbox layout for footer positioning */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Allows main content to push footer down */
+main {
+  flex: 1;
+}
+
+/* Set background image for specific containers */
 .container {
   background-image: url('https://doc-10-ao-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/r085o9ungppbiokopob2sfbekae4uqbb/1537920000000/14802840322886517493/*/110cT8sl-pOiHGgj9yToPkAqAzrr-RNfb');
   height: 100%;
@@ -15,7 +32,7 @@ html {
   background-size: cover;
 }
 
-/* Position text in the middle */
+/* Position text in the middle of the container */
 .middle {
   position: absolute;
   color: beige;
@@ -25,23 +42,73 @@ html {
   font-size: 25px;
 }
 
-/*Set circle in unordered list*/
+/* Set unordered list style inside .middle */
 .middle ul {
   list-style-type: circle;
 }
 
-/*Set text inside li tag to left*/
+/* Align list items text to the left */
 .middle ul li {
   text-align: left !important;
 }
 
-/*Set text color for a tag inside middle class and ul>li element*/
+/* Anchor tag color inside .middle list */
 .middle ul li a {
   color: beige;
 }
 
-/*Change text color and decoration for a tags inside middle class and ul>li element*/
+/* Hover effect on anchor tags */
 .middle ul li a:hover {
   color: red;
   text-decoration: none;
+}
+/* Typography Enhancements */
+h1, h2, h4 {
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+h2, h4 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Improve bullet alignment */
+ul {
+  padding-left: 1.2rem;
+}
+
+/* Bio image style */
+img[alt="Garrett Bridenbaugh"] {
+  max-width: 250px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Data Filer */
+#filterType, #filterValue {
+  min-width: 150px;
+}
+
+/* Chart spacing and centering */
+canvas {
+  display: block;
+  margin: 0 auto 60px auto;
+}
+.chart-section {
+  margin-bottom: 80px;
+}
+
+.chart-section canvas {
+  margin-top: 20px;
+}
+
+.chart-section h2 {
+  padding-top: 40px;
+  margin-bottom: 30px;
 }

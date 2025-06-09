@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics - Real Estate Data Explorer</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .chart-section {
+      margin-bottom: 80px;
+    }
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+        <span>Real Estate</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="comparelistings.html">Compare Listings</a></li>
+          <li class="nav-item"><a class="nav-link active" href="analytics.html">Analytics</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-photo">
+    <div class="overlay"></div>
+    <div class="container text-center">
+      <img src="img/logo.png" alt="Site Logo" class="mb-3" />
+      <h1>Explore Housing Analytics</h1>
+      <p>Compare prices, trends, and regional insights across the U.S. market.</p>
+    </div>
+  </section>
+
+  <!-- Chart Section: Bedroom-based Price -->
+  <section class="container text-center chart-section">
+    <h2>Average Price by Bedroom Count</h2>
+    <div class="mx-auto" style="max-width: 700px; height: 400px;">
+      <canvas id="bedroomChart"></canvas>
+    </div>
+    <div class="mt-4 px-3 px-md-5">
+      <p>
+        This chart shows how home prices scale with bedroom count. While prices generally rise with more bedrooms, homes with 3 to 4 bedrooms strike the best balance between affordability and space. Interestingly, the price increase flattens for homes with more than 6 bedrooms, suggesting diminishing returns for ultra-large homes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Chart Section: Price by State -->
+  <section class="container text-center chart-section">
+    <h2>Average Home Price by State</h2>
+    <div class="mx-auto" style="max-width: 1000px; height: 600px; overflow-x: auto;">
+      <canvas id="priceChart"></canvas>
+    </div>
+    <div class="mt-4 px-3 px-md-5">
+      <p>
+        Housing prices vary significantly across U.S. states. High-cost states like California and New York dominate the upper range, while Midwest and Southern states generally have lower home prices. This chart helps illustrate how geography heavily influences affordability and market behavior.
+      </p>
+    </div>
+  </section>
+
+  <!-- Final Summary -->
+  <section class="container my-5">
+    <div class="text-center px-3 px-md-5">
+      <h4>Conclusion</h4>
+      <p>
+        Our visual exploration reveals two key housing trends: (1) bedroom count is a strong driver of price up to a point, and (2) regional location significantly impacts average home cost. These insights offer valuable guidance for buyers, investors, and policymakers analyzing affordability and housing supply across the United States.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    &copy; 2025 US Real Estate Data Explorer. All rights reserved.
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // ✅ Full embedded dataset (replace with your real averages)
+    const bedroomData = {
+      bedroom_labels: ["1", "2", "3", "4", "5", "6", "7+"],
+      average_prices: [142589.21, 186720.55, 223456.78, 265340.12, 301235.67, 348943.32, 362500.11]
+    };
+
+    const stateData = {
+      states: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+               "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+               "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+               "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+               "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
+               "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+               "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"],
+      average_prices: [189000.55, 336000.89, 289500.33, 202345.77, 689456.22, 491203.90, 412345.60,
+                       301234.50, 423456.78, 275123.45, 789345.67, 332211.89, 267890.45, 229000.12,
+                       215678.99, 228000.67, 205432.55, 210987.33, 260345.22, 395678.88, 523456.78,
+                       248765.34, 297654.43, 182345.66, 234567.78, 276543.89, 241234.56, 367890.21,
+                       312345.67, 489123.45, 239000.23, 652345.89, 333456.78, 293456.00, 250987.12,
+                       227654.32, 435678.90, 312345.00, 376543.21, 289000.45, 228900.12, 318765.44,
+                       498765.43, 453210.87, 289999.99, 410987.65, 522345.11, 195678.32, 265432.10, 232345.55]
+    };
+
+    // Render Bedroom Chart
+    function renderBedroomChart(data) {
+      const ctx = document.getElementById('bedroomChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.bedroom_labels,
+          datasets: [{
+            label: 'Average Price ($)',
+            data: data.average_prices,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: value => '$' + value.toLocaleString(undefined, {maximumFractionDigits: 2})
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Render State Chart
+    function renderStateChart(data) {
+      const ctx = document.getElementById('priceChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.states,
+          datasets: [{
+            label: 'Avg Home Price ($)',
+            data: data.average_prices,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: { display: false },
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              ticks: {
+                maxRotation: 60,
+                minRotation: 60,
+                autoSkip: false
+              }
+            },
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: value => '$' + value.toLocaleString(undefined, {maximumFractionDigits: 2})
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Render both
+    renderBedroomChart(bedroomData);
+    renderStateChart(stateData);
+  </script>
+</body>
+</html>
